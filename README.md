@@ -1,3 +1,4 @@
+<div align="center">
 # Amazon ETZ2 processes simulation
 
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
@@ -13,5 +14,6 @@
 ![ESP32 - Worker](https://img.shields.io/badge/Work-in--Progress-orange)
 ![Raspberry Pi - Manager](https://img.shields.io/badge/Work-in--Progress-orange)
 ![OLAP Environment - Data Analysis](https://img.shields.io/badge/Work-in--Progress-orange)
+</div>
 
 This repository contains a simulation of the Amazon ETZ2 processes, including receiving, dispatching, stowing, picking, packing, and shipping items. The project is designed to model the workflow and operations within an Amazon fulfillment center.
