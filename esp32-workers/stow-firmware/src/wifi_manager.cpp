@@ -13,7 +13,7 @@ void WiFiManager::begin() {
 }
 
 bool WiFiManager::connect() {
-    Serial.print("Connecting to" + String(WIFI_SSID) + "...");
+    Serial.print("Connecting to " + String(WIFI_SSID) + "...");
     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
     int attempts = 0;
@@ -63,8 +63,9 @@ void WiFiManager::checkConnection() {
         isSignalStable(); // Update signal stability status
     }
 
-    if (!isWifiConnected() || !isSignalStable()) {
-        Serial.println("WiFi connection lost. Reconnecting...");
+    // Only reconnect if actually disconnected, not just weak signal
+    if (!isWifiConnected()) {
+        Serial.println("⚠️ WiFi disconnected, attempting to reconnect...");
         connect();
     }
 }
@@ -81,7 +82,7 @@ void WiFiManager::printStatus() {
     }
 }
 
-void WiFiManager::aprintSignal() {
+void WiFiManager::printSignal() {
     static const unsigned int EXCELLENT_THRESHOLD = -50;
     static const unsigned int GOOD_THRESHOLD = -60;
     static const unsigned int FAIR_THRESHOLD = -70;

@@ -21,6 +21,7 @@ class WiFiManager {
         bool isSignalStable();
         void checkConnection();
         void printStatus();
+        void printSignal();
 };
 
 extern WiFiManager wifiManager;
