@@ -23,7 +23,8 @@ void DisplayManager::begin() {
     initialized = true;
 
     display.clearDisplay();
-    display.setTextColor(SSD1306_WHITE);
+    display.setTextColor(WHITE);
+    display.setTextWrap(false);  // Disable automatic text wrapping
     display.display();
 }
 
@@ -159,12 +160,18 @@ void DisplayManager::scrollLine(ScrollConfig &line) {
 }
 
 void DisplayManager::drawText(const String& text, uint8_t yPosition, uint8_t fontSize, int xOffset) {
-    display.setTextSize(fontSize == 6 ? 1 : fontSize / 8);
+    // Convert fontSize to Adafruit textSize (1=smallest, 2=double size, etc.)
+    uint8_t textSize = (fontSize + 7) / 8;  // Round up division by 8
+    if (textSize < 1) textSize = 1;
+    display.setTextSize(textSize);
     display.setCursor(xOffset, yPosition);
     display.print(text);
 }
 
 int DisplayManager::getTextWidth(const String& text, uint8_t fontSize) {
-    int charWidth = (fontSize == 6) ? 6 : 6 * (fontSize / 8);
+    // Use same logic as drawText() to calculate textSize
+    uint8_t textSize = (fontSize + 7) / 8;
+    if (textSize < 1) textSize = 1;
+    int charWidth = 6 * textSize;  // Base char width is 6 pixels
     return text.length() * charWidth;
 }
