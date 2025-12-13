@@ -1,0 +1,59 @@
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    container_name: mqtt-broker
+    restart: unless-stopped
+    ports:
+      - 1883:1883
+      - 8883:8883
+      - 9001:9001
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+      - .mosquitto/passwords:/mosquitto/passwords
+    networks:
+      - mqtt-net
+  timescaledb:
+    build: ./db
+    container_name: timescaledb
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER: ${PG_USER}
+      - POSTGRES_PASSWORD: ${PG_PASSWORD}
+      - POSTGRES_DB: ${PG_DB}
+      - TZ: UTC
+      - PGTZ: UTC
+      - TIMESCALEDB_TELEMETRY: off
+      - TS_TUNE_MEMORY: 100MB
+    ports:
+      - 5432:5432
+    volumes:
+      - timescaledb:/var/lib/postgresql/data
+    networks:
+      - mqtt-net
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER: ${GF_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD}
+      - GF_SERVER_ROOT_URL: http://localhost:3000
+      - GF_AUTH_ANONYMOUS_ENABLED: true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - mqtt-net
+
+networks:
+  mqtt-net:
+    name: mqtt-net
+    driver: bridge
+
+volumes:
+  timescaledb:
+  grafana_data:
