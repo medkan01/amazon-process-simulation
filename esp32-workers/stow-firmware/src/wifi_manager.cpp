@@ -25,7 +25,7 @@ bool WiFiManager::connect() {
 
     Serial.println();
     if (WiFi.status() == WL_CONNECTED) {
-        Serial.println("WiFi connected.");
+        Serial.println("✅ WiFi connected successfully.");
         Serial.print("IP address: ");
         Serial.println(WiFi.localIP());
         Serial.print("MAC address: ");
@@ -34,7 +34,7 @@ bool WiFiManager::connect() {
         isConnected = true;
         return true;
     } else {
-        Serial.println("Failed to connect to WiFi.");
+        Serial.println("❌ Failed to connect to WiFi.");
         isConnected = false;
         return false;
     }
@@ -72,12 +72,12 @@ void WiFiManager::checkConnection() {
 void WiFiManager::printStatus() {
     Serial.print("WiFi Status: ");
     if (isWifiConnected()) {
-        Serial.println("Connected");
+        Serial.println("✅ Connected");
         Serial.print("Signal Strength (RSSI): ");
         Serial.print(WiFi.RSSI());
         Serial.println(" dBm");
     } else {
-        Serial.println("Disconnected");
+        Serial.println("❌ Disconnected");
     }
 }
 
