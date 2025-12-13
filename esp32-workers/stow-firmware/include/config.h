@@ -16,4 +16,19 @@
 #define MQTT_USER       "stow_worker"
 #define MQTT_PASSWORD   "reKroW-wotS-251213"
 
+// Device Configuration
+#define I2C_SDA_PIN     21
+#define I2C_SCK_PIN     22
+#define I2C_HEIGHT      32
+#define I2C_WIDTH       128
+
+// Display Configuration
+#define DISPLAY_I2C_ADDRESS         0x3C
+#define DISPLAY_SCROLL_SPEED        100                 // ms per pixel
+#define DISPLAY_LINE1_Y             0                   // Y position for line 1
+#define DISPLAY_LINE2_Y             16                  // Y position for line 2
+#define DISPLAY_DEFAULT_FONT_SIZE   8                   // Default font size for single line
+#define DISPLAY_LINE1_FONT_SIZE     6                   // Default font size for line 1 (two lines mode)
+#define DISPLAY_LINE2_FONT_SIZE     8                   // Default font size for line 2 (two lines mode)
+
 #endif // CONFIG_H
