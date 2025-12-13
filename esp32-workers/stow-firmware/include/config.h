@@ -11,7 +11,7 @@
 #define DAYLIGHT_OFFSET_SEC     0                   // No daylight saving time
 
 // MQTT Configuration
-#define MQTT_SERVER     "192.168.0.2"
+#define MQTT_SERVER     "192.168.0.205"
 #define MQTT_PORT       1883
 #define MQTT_USER       "stow_worker"
 #define MQTT_PASSWORD   "reKroW-wotS-251213"
@@ -25,10 +25,10 @@
 // Display Configuration
 #define DISPLAY_I2C_ADDRESS         0x3C
 #define DISPLAY_SCROLL_SPEED        100                 // ms per pixel
-#define DISPLAY_LINE1_Y             0                   // Y position for line 1
+#define DISPLAY_LINE1_Y             0                   // Y position for line 1 (contains 2 text lines with \n)
 #define DISPLAY_LINE2_Y             16                  // Y position for line 2
-#define DISPLAY_DEFAULT_FONT_SIZE   8                   // Default font size for single line
-#define DISPLAY_LINE1_FONT_SIZE     6                   // Default font size for line 1 (two lines mode)
-#define DISPLAY_LINE2_FONT_SIZE     8                   // Default font size for line 2 (two lines mode)
+#define DISPLAY_DEFAULT_FONT_SIZE   20                  // Default font size for single line
+#define DISPLAY_LINE1_FONT_SIZE     4                   // Default font size for line 1 (two lines mode)
+#define DISPLAY_LINE2_FONT_SIZE     12                  // Default font size for line 2 (two lines mode)
 
 #endif // CONFIG_H
