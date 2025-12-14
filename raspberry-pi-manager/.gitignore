@@ -21,3 +21,7 @@ logs/
 *.tmp
 *.bak
 *~
+
+# Python cache and virtual environments
+**/.venv/
+**/__pycache__/
