@@ -21,7 +21,6 @@ class MQTTManager {
 
         String getMqttErrorMessage(int errorCode);
         
-        // Topic generation helpers
         String getBaseTopic();
         String getConnectionTopic();
         String getStatusTopic();
@@ -38,26 +37,6 @@ class MQTTManager {
         void maintainConnection();
         void printStatus();
         void printSignal();
-
-        String MQTTManager::getBaseTopic() {
-            return "process/stow/" + deviceMacAddress;
-        }
-
-        String MQTTManager::getConnectionTopic() {
-            return getBaseTopic() + "/state/connection";
-        }
-
-        String MQTTManager::getStatusTopic() {
-            return getBaseTopic() + "/status";
-        }
-
-        String MQTTManager::getMetricsTopic() {
-            return getBaseTopic() + "/metrics";
-        }
-
-        String MQTTManager::getCustomTopic(const String& suffix) {
-            return getBaseTopic() + "/" + suffix;
-        }
 };
 
 extern MQTTManager mqttManager;

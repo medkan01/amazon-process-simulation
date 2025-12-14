@@ -73,6 +73,26 @@ bool MQTTManager::connect() {
     return true;
 }
 
+String MQTTManager::getBaseTopic() {
+    return "process/stow/" + deviceMacAddress;
+}
+
+String MQTTManager::getConnectionTopic() {
+    return getBaseTopic() + "/state/connection";
+}
+
+String MQTTManager::getStatusTopic() {
+    return getBaseTopic() + "/status";
+}
+
+String MQTTManager::getMetricsTopic() {
+    return getBaseTopic() + "/metrics";
+}
+
+String MQTTManager::getCustomTopic(const String& suffix) {
+    return getBaseTopic() + "/" + suffix;
+}
+
 String MQTTManager::getMqttErrorMessage(int errorCode) {
     switch (errorCode) {
         case -4: return "MQTT_CONNECTION_TIMEOUT - Network timeout";
