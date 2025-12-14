@@ -40,18 +40,19 @@ bool MQTTManager::connect() {
         mqttAttemptCount++;
         lastMqttReconnectAttempt = millis();
 
-        // Connect with Last Will and Testament (LWT) to detect unexpected disconnects
-        String lwtTopic = "process/stow/" + deviceMacAddress + "/status";
-        String lwtPayload = "{\"device_mac_address\":\"" + deviceMacAddress + "\",\"timestamp\":\"" + timeManager.getFormattedDateTime() + "\"}";
-
-        if (client.connect(clientId.c_str(), MQTT_USER, MQTT_PASSWORD, lwtTopic.c_str(), 1, true, lwtPayload.c_str())) {
+        // Configure Last Will and Testament (LWT) for automatic offline detection
+        String connectionTopic = getConnectionTopic();
+        String lwtPayload = "offline";  // Simple payload - broker publishes this if device disconnects unexpectedly
+        
+        if (client.connect(clientId.c_str(), MQTT_USER, MQTT_PASSWORD, connectionTopic.c_str(), 1, true, lwtPayload.c_str())) {
             Serial.println("✅ Connected to MQTT broker successfully.");
 
-            // Publish initial online status
-            String onlineTopic = "process/stow/" + deviceMacAddress + "/status";
-            String onlinePayload = "{\"device_mac_address\":\"" + deviceMacAddress + "\",\"timestamp\":\"" + timeManager.getFormattedDateTime() + "\"}";
-
-            client.publish(onlineTopic.c_str(), onlinePayload.c_str(), true);
+            // Publish Birth message - confirms device is actually online
+            // MUST use same topic as LWT with retain=true to override any stale offline message
+            String birthPayload = "online";
+            client.publish(connectionTopic.c_str(), birthPayload.c_str(), true);
+            
+            Serial.println("✅ Birth message published (online).");
 
             mqttAttemptCount = 0; // Reset attempt count on successful connection
             return true;
