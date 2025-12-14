@@ -20,6 +20,12 @@ class MQTTManager {
         static const unsigned long CONNECTION_CHECK_INTERVAL = 15000; // 15 seconds
 
         String getMqttErrorMessage(int errorCode);
+        
+        String getBaseTopic();
+        String getConnectionTopic();
+        String getStatusTopic();
+        String getMetricsTopic();
+        String getCustomTopic(const String& suffix);
 
     public:
         MQTTManager();

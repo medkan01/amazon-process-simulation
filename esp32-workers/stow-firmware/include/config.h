@@ -24,7 +24,7 @@
 
 // Display Configuration
 #define DISPLAY_I2C_ADDRESS         0x3C
-#define DISPLAY_SCROLL_SPEED        100                 // ms per pixel
+#define DISPLAY_SCROLL_SPEED        10                  // ms per pixel
 #define DISPLAY_LINE1_Y             0                   // Y position for line 1 (contains 2 text lines with \n)
 #define DISPLAY_LINE2_Y             16                  // Y position for line 2
 #define DISPLAY_DEFAULT_FONT_SIZE   20                  // Default font size for single line
