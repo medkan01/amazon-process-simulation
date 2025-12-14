@@ -49,6 +49,25 @@ services:
     networks:
       - mqtt-net
 
+  mqtt-subscriber:
+    build: ./mqtt-subscriber
+    container_name: mqtt-subscriber
+    restart: unless-stopped
+    environment:
+      MQTT_BROKER: mqtt-broker
+      MQTT_PORT: 1883
+      PG_HOST: timescaledb
+      PG_PORT: 5432
+      PG_USER: ${PG_USER}
+      PG_PASSWORD: ${PG_PASSWORD}
+      PG_DB: ${PG_DB}
+      TZ: UTC
+    depends_on:
+      - mosquitto
+      - timescaledb
+    networks:
+      - mqtt-net
+
 networks:
   mqtt-net:
     name: mqtt-net
